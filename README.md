@@ -13,7 +13,7 @@ This is a project for concurrent programming course
 * At project directory:
 	* Make sure there is the ouput directory and LanHouse executable
 	* chmod +x test.sh
-	* ./test.sh numberOfExecutions
+	* ./test.sh number_of_executations
 
 ### Author
 * Marciel Leal - marcielmanoel15@gmail.com
