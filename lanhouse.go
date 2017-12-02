@@ -42,8 +42,8 @@ func (t* Teenager) printWaitStatus(){
 	fmt.Printf("Adolescente %s. está aguardando\n",t.name)
 }
 
-func createsTeenagers() (teenagersList []Teenager){
-	teenagersList= make([]Teenager, numberOfTeenagers)
+func createsTeenagers() ([]Teenager){
+	teenagersList:= make([]Teenager, numberOfTeenagers)
 
 	seedToRandom := rand.New(rand.NewSource(time.Now().Unix()))
 
@@ -58,14 +58,14 @@ func createsTeenagers() (teenagersList []Teenager){
 							string(listToGenerateRandomNamesOrder[i] + convertToASCII), // Creates strings in range A..Z
 							seedToRandom.Intn(sizeOfRangeOfPossiblesOnlineTimes) + lowerOnlineTimePossible, // Generates numbers between 15 and 120
 							i < numberOfComputers } // Only the numberOfComputers-th teenegars will use computers initially
-	}
-	return
+	} 
+	return teenagersList 
 }
 
-func startsTenagersQueueOnLanhouse()(teenagersQueue chan Teenager){
+func startsTenagersQueueOnLanhouse()(chan Teenager){
 	teenagersList:=createsTeenagers()
 
-	teenagersQueue=make(chan Teenager, numberOfTeenagers)
+	teenagersQueue:=make(chan Teenager, numberOfTeenagers)
 	for i:=0; i<numberOfTeenagers; i++{
 		teenagersQueue <- teenagersList[i]
 		if teenagersList[i].isOnline{
@@ -74,7 +74,8 @@ func startsTenagersQueueOnLanhouse()(teenagersQueue chan Teenager){
 			teenagersList[i].printWaitStatus()
 		}
 	}
-	return
+	close(teenagersQueue)
+	return teenagersQueue
 }
 
 
